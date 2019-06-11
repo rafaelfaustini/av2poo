@@ -60,6 +60,12 @@ public class Inicio extends JFrame {
 		contentPane.add(btnDisciplinas);
 		
 		JButton btnNewButton = new JButton("Professores");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProfessorView p = new ProfessorView();
+				p.setVisible(true);
+			}
+		});
 		btnNewButton.setBounds(152, 103, 140, 23);
 		contentPane.add(btnNewButton);
 	}

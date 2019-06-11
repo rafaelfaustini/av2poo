@@ -8,17 +8,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.DisciplinaController;
-import Model.Disciplina;
+import Controller.ProfessorController;
+import Model.Professor;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class RemoverDisciplinaView extends JFrame {
+public class RemoverProfessorView extends JFrame {
 
 	private JPanel contentPane;
 
@@ -29,9 +29,8 @@ public class RemoverDisciplinaView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RemoverDisciplinaView frame = new RemoverDisciplinaView();
+					RemoverProfessorView frame = new RemoverProfessorView();
 					frame.setVisible(true);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,10 +38,14 @@ public class RemoverDisciplinaView extends JFrame {
 		});
 	}
 
+	public void atualizar(JComboBox c) {
+		ProfessorController controller = new ProfessorController();
+		c.setModel(new JComboBox(controller.listar().toArray()).getModel());
+	}
 	/**
 	 * Create the frame.
 	 */
-	public RemoverDisciplinaView() {
+	public RemoverProfessorView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -50,29 +53,28 @@ public class RemoverDisciplinaView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblRemoverDisciplina = new JLabel("Remover Disciplina");
-		lblRemoverDisciplina.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRemoverDisciplina.setBounds(44, 11, 340, 14);
-		contentPane.add(lblRemoverDisciplina);
+		JLabel lblRemoverProfessor = new JLabel("Remover Professor");
+		lblRemoverProfessor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRemoverProfessor.setBounds(33, 11, 366, 14);
+		contentPane.add(lblRemoverProfessor);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(119, 54, 202, 20);
-		DisciplinaController controller = new DisciplinaController();
-		comboBox.setModel(new JComboBox(controller.listar().toArray()).getModel());
-		
+		comboBox.setBounds(159, 53, 107, 20);
 		contentPane.add(comboBox);
-		
+		atualizar(comboBox);
 		JButton btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DisciplinaController controller = new DisciplinaController();
-				Disciplina disciplina = (Disciplina)comboBox.getSelectedItem();
-				controller.remover(disciplina);
-				comboBox.setModel(new JComboBox(controller.listar().toArray()).getModel());
-				JOptionPane.showMessageDialog(null, "Disciplina excluida com sucesso");
+			public void actionPerformed(ActionEvent e) {
+				
+				ProfessorController controller = new ProfessorController();
+				Professor professor = (Professor)comboBox.getSelectedItem();
+				controller.remover(professor);
+				atualizar(comboBox);
+				
 			}
 		});
-		btnRemover.setBounds(176, 113, 89, 23);
+		btnRemover.setBounds(159, 94, 107, 23);
 		contentPane.add(btnRemover);
 	}
+
 }

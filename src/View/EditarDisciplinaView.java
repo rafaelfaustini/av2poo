@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.DisciplinaController;
+import Model.Disciplina;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -60,7 +61,7 @@ public class EditarDisciplinaView extends JFrame {
 		lblEditarDisciplina.setBounds(10, 11, 403, 14);
 		contentPane.add(lblEditarDisciplina);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Disciplina> comboBox = new JComboBox<Disciplina>();
 		comboBox.setBounds(155, 36, 115, 20);
 		comboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -76,7 +77,10 @@ public class EditarDisciplinaView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int index = comboBox.getSelectedIndex();
 				DisciplinaController controller = new DisciplinaController();
-				controller.editar(comboBox.getSelectedItem().toString(),textField.getText());
+				Disciplina disciplina = new Disciplina(textField.getText());
+				Disciplina tmp = (Disciplina)comboBox.getSelectedItem();
+				disciplina.setId(tmp.getId());
+				controller.editar(disciplina);
 				atualizar(comboBox);
 				comboBox.setSelectedIndex(index);
 				JOptionPane.showMessageDialog(null, "Disciplina editada com sucesso");

@@ -25,18 +25,19 @@ public class DisciplinaController {
 		
 
 	}
-	public void remover(String disciplina)
+	public void remover(Disciplina disciplina)
 	{
 		
 		
 		try {
 			Conexao con = new Conexao();
 			Statement st = con.conexao.createStatement();
-			String query = "DELETE FROM disciplina where nome='" + disciplina+"'";
+			String query = "DELETE FROM disciplina where id=" + disciplina.getId()+"";
 			st = con.conexao.createStatement();
 			st.executeUpdate(query);
 			con.conexao.close();
 		} catch (SQLException e) {
+			System.out.println("DR");
 			e.printStackTrace();
 		} finally {
 		
@@ -44,18 +45,19 @@ public class DisciplinaController {
 		
 
 	}
-	public void editar(String antes, String nome)
+	public void editar(Disciplina disciplina)
 	{
 		
 		
 		try {
 			Conexao con = new Conexao();
 			Statement st = con.conexao.createStatement();
-			String query = "UPDATE disciplina SET nome='"+nome+"' where nome='" + antes+"'";
+			String query = "UPDATE disciplina SET nome='"+disciplina.getNome()+"' where id=" + disciplina.getId()+"";
 			st = con.conexao.createStatement();
 			st.executeUpdate(query);
 			con.conexao.close();
 		} catch (SQLException e) {
+			System.out.println("DE");
 			e.printStackTrace();
 		} finally {
 		
@@ -64,20 +66,24 @@ public class DisciplinaController {
 
 	}
 	
-	public List<String> listar() {
-		List<String> l= new ArrayList<String>();
+	public List<Disciplina> listar() {
+		
+		List<Disciplina> l= new ArrayList<Disciplina>();
 		try {
 			Conexao con = new Conexao();
-			String query = "SELECT nome from disciplina";
+			String query = "SELECT * from disciplina";
 			Statement st = con.conexao.createStatement();
 			ResultSet r = st.executeQuery(query);
 		    while (r.next())
 		      {
-		        l.add( r.getString("nome") );
+		    	Disciplina disciplina = new Disciplina(r.getString("nome"));
+		    	disciplina.setId(r.getInt("id"));
+		        l.add(disciplina);
 		      }	
 			con.conexao.close();
 
 		} catch (SQLException e) {
+			System.out.println("DL");
 			e.printStackTrace();
 		} finally {
 		

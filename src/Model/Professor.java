@@ -36,5 +36,8 @@ public class Professor {
 		return email;
 	}
 	
+	public String toString() {
+    return this.nome;
+	}
 	
 }
