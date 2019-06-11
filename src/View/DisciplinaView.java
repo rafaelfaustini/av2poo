@@ -57,10 +57,22 @@ public class DisciplinaView extends JFrame {
 		contentPane.add(btnCriar);
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EditarDisciplinaView n = new EditarDisciplinaView();
+				n.setVisible(true);
+			}
+		});
 		btnEditar.setBounds(176, 105, 89, 23);
 		contentPane.add(btnEditar);
 		
 		JButton btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RemoverDisciplinaView n = new RemoverDisciplinaView();
+				n.setVisible(true);
+			}
+		});
 		btnRemover.setBounds(176, 139, 89, 23);
 		contentPane.add(btnRemover);
 		
