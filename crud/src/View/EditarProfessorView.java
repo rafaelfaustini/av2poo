@@ -50,13 +50,15 @@ public class EditarProfessorView extends JFrame {
 	public void atualizarDisciplina(JComboBox c) {
 		DisciplinaController controller = new DisciplinaController();
 		c.setModel(new JComboBox(controller.listar().toArray()).getModel());
+		
+		
 	}
 	public void atualizarProfessor(JComboBox c) {
 		ProfessorController controller = new ProfessorController();
 		c.setModel(new JComboBox(controller.listar().toArray()).getModel());
 	}
 	public EditarProfessorView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,7 +89,7 @@ public class EditarProfessorView extends JFrame {
 		contentPane.add(lblCpf);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(211, 100, 114, 20);
+		textField_1.setBounds(211, 100, 164, 20);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		textField_1.setText(professor.getNome());
@@ -107,13 +109,40 @@ public class EditarProfessorView extends JFrame {
 		contentPane.add(lblEmail);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(233, 145, 92, 20);
+		comboBox_1.setBounds(233, 145, 142, 20);
 		contentPane.add(comboBox_1);
 		atualizarDisciplina(comboBox_1);
-		
+		comboBox_1.setSelectedItem(professor.getDisciplina());	
 		JLabel lblDisciplina = new JLabel("Disciplina");
-		lblDisciplina.setBounds(233, 131, 46, 14);
+		lblDisciplina.setBounds(233, 131, 114, 14);
 		contentPane.add(lblDisciplina);
+		professor = (Professor)comboBox.getSelectedItem();
+		for (int i=0; i<comboBox_1.getModel().getSize(); i++)
+		{
+		    if (comboBox_1.getItemAt(i).toString().equals(professor.getDisciplina().getNome()))
+		    {
+		        comboBox_1.setSelectedIndex(i);
+		        break;
+		    }
+		}	
+		
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Professor professor = (Professor)comboBox.getSelectedItem();
+				atualizarDisciplina(comboBox_1);
+				textField.setText(professor.getCpf());
+				textField_1.setText(professor.getNome());
+				textField_2.setText(professor.getEmail());
+				for (int i=0; i<comboBox_1.getModel().getSize(); i++)
+				{
+				    if (comboBox_1.getItemAt(i).toString().equals(professor.getDisciplina().getNome()))
+				    {
+				        comboBox_1.setSelectedIndex(i);
+				        break;
+				    }
+				}
+			}
+		});
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {

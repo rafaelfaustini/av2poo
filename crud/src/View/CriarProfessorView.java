@@ -13,6 +13,7 @@ import Model.Disciplina;
 import Model.Professor;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -53,7 +54,7 @@ public class CriarProfessorView extends JFrame {
 	 * Create the frame.
 	 */
 	public CriarProfessorView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -109,6 +110,7 @@ public class CriarProfessorView extends JFrame {
 				ProfessorController controller = new ProfessorController();
 				Professor professor = new Professor(textField.getText(), textField_1.getText(), (Disciplina)comboBox.getSelectedItem(), textField_2.getText());
 				controller.create(professor);
+				JOptionPane.showMessageDialog(null, "Professor "+professor.getNome()+" criado com sucesso");
 			}
 		});
 		btnInserir.setBounds(144, 246, 89, 23);

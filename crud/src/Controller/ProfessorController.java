@@ -67,7 +67,7 @@ public class ProfessorController {
 			Conexao con = new Conexao();
 			Statement st = con.conexao.createStatement();
 			int id = professor.getDisciplina().getId();
-			String query = "UPDATE professor set nome='"+professor.getNome()+"', email='"+professor.getEmail()+"', disciplina='"+id+"'";
+			String query = "UPDATE professor set nome='"+professor.getNome()+"', email='"+professor.getEmail()+"', disciplina='"+id+"' where cpf="+professor.getCpf();
 			st = con.conexao.createStatement();
 			st.execute(query);
 			ResultSet r = st.getResultSet();

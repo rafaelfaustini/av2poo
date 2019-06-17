@@ -37,7 +37,7 @@ public class Inicio extends JFrame {
 	 * Create the frame.
 	 */
 	public Inicio() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,11 +48,12 @@ public class Inicio extends JFrame {
 		lblCadastroDe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCadastroDe.setBounds(41, 11, 342, 14);
 		contentPane.add(lblCadastroDe);
-		
 		JButton btnDisciplinas = new JButton("Disciplinas");
+		Inicio self = this;
 		btnDisciplinas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DisciplinaView disciplina = new DisciplinaView();
+				self.dispose();
 				disciplina.setVisible(true);
 			}
 		});
@@ -63,6 +64,7 @@ public class Inicio extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProfessorView p = new ProfessorView();
+				self.dispose();
 				p.setVisible(true);
 			}
 		});
